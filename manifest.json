@@ -1,0 +1,19 @@
+{
+  "name": "GoogleMapRedirectionFixed",
+  "version": "1.0",
+  "manifest_version": 3,
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.google.com/search?*"
+      ],
+      "js": [
+        "custom.js"
+      ]
+    }
+  ],
+  "icons": {
+    "128": "logo-128x128.png",
+    "192": "logo-192x192.png"
+  }
+}
