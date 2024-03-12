@@ -1,0 +1,18 @@
+a.new-open-maps-btn,
+a.new-open-maps-btn:visited {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  border-radius: 8px;
+  background: #3c4043;
+  padding: 10px;
+  height: 18px;
+  color: #fff;
+  opacity: .8;
+  text-decoration: none;
+}
+
+a.new-open-maps-btn:hover {
+  opacity: 1;
+  text-decoration: none;
+}

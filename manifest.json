@@ -9,6 +9,9 @@
       ],
       "js": [
         "custom.js"
+      ],
+      "css": [
+        "custom.css"
       ]
     }
   ],
