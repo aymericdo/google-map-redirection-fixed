@@ -1,5 +1,8 @@
 a.new-open-maps-btn,
 a.new-open-maps-btn:visited {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   position: absolute;
   top: 10px;
   left: 10px;
@@ -7,7 +10,7 @@ a.new-open-maps-btn:visited {
   background: #3c4043;
   padding: 10px;
   height: 18px;
-  color: #fff;
+  color: #bdc1c6;
   opacity: .8;
   text-decoration: none;
 }
@@ -15,4 +18,9 @@ a.new-open-maps-btn:visited {
 a.new-open-maps-btn:hover {
   opacity: 1;
   text-decoration: none;
+}
+
+a.new-open-maps-btn svg {
+  color: #bdc1c6;
+  margin-left: 4px;
 }
