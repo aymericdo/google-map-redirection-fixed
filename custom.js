@@ -26,6 +26,7 @@ function getAddressURL() {
 
 const selector = "#lu_map";
 const selector2 = "[jsname='tRarif'][jsaction='click:ivJHQ']";
+const selector3 = "[jsname='Fus96e'][jsaction='NbD2ab']";
 
 
 waitForElm(selector).then((elm) => {
@@ -43,7 +44,7 @@ waitForElm(selector).then((elm) => {
   }
 });
 
-waitForElm(selector2).then((elm) => {
+function addGoogleMapButton(elm) {
   const aElement = document.createElement('a');
 
   const button = `
@@ -56,5 +57,7 @@ waitForElm(selector2).then((elm) => {
   aElement.innerHTML = button;
 
   elm.parentElement.appendChild(aElement);
-});
+}
 
+waitForElm(selector2).then(addGoogleMapButton);
+waitForElm(selector3).then(addGoogleMapButton);
