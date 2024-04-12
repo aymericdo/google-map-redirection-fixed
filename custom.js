@@ -21,7 +21,8 @@ function waitForElm(selector) {
 function getAddressURL() {
   const search = document.querySelector("#APjFqb")?.textContent;
   const address = search.split(' ').join('+');
-  return `https://www.google.fr/maps/search/${address}`;
+  const extension = window.location.host.split('.').pop() || 'com';
+  return `https://www.google.${extension}/maps/search/${address}`;
 }
 
 const selector = "#lu_map";
