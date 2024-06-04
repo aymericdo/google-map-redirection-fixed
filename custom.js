@@ -26,14 +26,22 @@ function getAddressURL() {
 }
 
 const selector = "#lu_map";
+const selector1 = "img[src^='/maps/vt/']";
 const selector2 = "[jsname='tRarif'][jsaction='click:ivJHQ']";
 const selector3 = "[jsname='Fus96e'][jsaction='NbD2ab']";
 
+function imgToButton(elm) {
+  elm.classList.add('dynamic-map-img-link')
 
-waitForElm(selector).then((elm) => {
-  elm.style.cursor = 'pointer';
-  
-  if (elm.closest("a")) {
+  if (elm instanceof HTMLImageElement) {
+    // clean/new way to transform img to link
+    const imgEl = elm;
+    const aElement = document.createElement('a');
+    aElement.href = getAddressURL();
+    aElement.innerHTML = imgEl.parentElement.innerHTML;
+
+    imgEl.replaceWith(aElement);
+  } else if (elm.closest("a")) {
     elm.closest("a").href = getAddressURL();
   } else {
     const imgEl = elm.querySelector('#pimg_1');
@@ -43,7 +51,10 @@ waitForElm(selector).then((elm) => {
 
     imgEl.replaceWith(aElement);
   }
-});
+}
+
+waitForElm(selector).then(imgToButton);
+waitForElm(selector1).then(imgToButton);
 
 function addGoogleMapButton(elm) {
   const aElement = document.createElement('a');

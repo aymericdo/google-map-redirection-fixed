@@ -1,6 +1,6 @@
 {
   "name": "GoogleMapRedirectionFixed",
-  "version": "2.4",
+  "version": "2.5",
   "manifest_version": 3,
   "content_scripts": [
     {
