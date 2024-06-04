@@ -27,14 +27,14 @@ a.new-open-maps-btn svg {
 
 .dynamic-map-img-link {
   cursor: pointer;
-  border-top-right-radius: 16px;
-  border-bottom-right-radius: 16px;
+  border-radius: 16px;
   box-sizing: border-box;
   border: 1px solid transparent;
+  padding: 1px;
 }
 
 .dynamic-map-img-link:hover {
-  background: linear-gradient(0,#ea4335, #34a853);
+  background: linear-gradient(to bottom right, #1a73e8 0%,  25%, #34a853 50%, #fbbc04 75%, #ea4335 100%);
   border-image: linear-gradient(to bottom right, #1a73e8 0%,  25%, #34a853 50%, #fbbc04 75%, #ea4335 100%);
   border-image-slice: 1;
 }

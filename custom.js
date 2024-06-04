@@ -31,8 +31,7 @@ const selector2 = "[jsname='tRarif'][jsaction='click:ivJHQ']";
 const selector3 = "[jsname='Fus96e'][jsaction='NbD2ab']";
 
 function imgToButton(elm) {
-  elm.classList.add('dynamic-map-img-link')
-
+  elm.classList.add('dynamic-map-img-link');
   if (elm instanceof HTMLImageElement) {
     // clean/new way to transform img to link
     const imgEl = elm;
