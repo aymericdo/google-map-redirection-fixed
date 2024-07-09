@@ -38,3 +38,8 @@ a.new-open-maps-btn svg {
   border-image: linear-gradient(to bottom right, #1a73e8 0%,  25%, #34a853 50%, #fbbc04 75%, #ea4335 100%);
   border-image-slice: 1;
 }
+
+.dynamic-map-img-link #lu_map {
+  max-width: 100%;
+  max-height: 100%;
+}
