@@ -60,7 +60,6 @@ waitForElm(selector).then(imgToButton);
 waitForElm(selector1).then(imgToButton);
 
 function addGoogleMapButton(elm) {
-  if (isLocked) return;
   isLocked = true;
   const aElement = document.createElement('a');
 
