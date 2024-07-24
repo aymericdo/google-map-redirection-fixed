@@ -27,10 +27,12 @@ function getAddressURL() {
   return `https://www.google.${extension}/maps/search/${address}`;
 }
 
-const selector = "#lu_map";
-const selector1 = "img[src^='/maps/vt/']";
-const selector2 = "[jsname='tRarif'][jsaction='click:ivJHQ']";
-const selector3 = "[jsname='Fus96e'][jsaction='NbD2ab']";
+const selector11 = "#lu_map";
+const selector12 = "img[src^='/maps/vt/']";
+const selector13 = "#dimg_3";
+
+const selector21 = "[jsname='tRarif'][jsaction='click:ivJHQ']";
+const selector22 = "[jsname='Fus96e'][jsaction='NbD2ab']";
 
 function imgToButton(elm) {
   if (isLocked) return;
@@ -56,8 +58,9 @@ function imgToButton(elm) {
   }
 }
 
-waitForElm(selector).then(imgToButton);
-waitForElm(selector1).then(imgToButton);
+waitForElm(selector11).then(imgToButton);
+waitForElm(selector12).then(imgToButton);
+waitForElm(selector13).then(imgToButton);
 
 function addGoogleMapButton(elm) {
   isLocked = true;
@@ -75,5 +78,5 @@ function addGoogleMapButton(elm) {
   elm.parentElement.appendChild(aElement);
 }
 
-waitForElm(selector2).then(addGoogleMapButton);
-waitForElm(selector3).then(addGoogleMapButton);
+waitForElm(selector21).then(addGoogleMapButton);
+waitForElm(selector22).then(addGoogleMapButton);

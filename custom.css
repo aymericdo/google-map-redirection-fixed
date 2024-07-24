@@ -26,6 +26,7 @@ a.new-open-maps-btn svg {
 }
 
 .dynamic-map-img-link {
+  max-width: 100%;
   cursor: pointer;
   border-radius: 16px;
   box-sizing: border-box;
@@ -39,7 +40,11 @@ a.new-open-maps-btn svg {
   border-image-slice: 1;
 }
 
-.dynamic-map-img-link #lu_map {
+.dynamic-map-img-link > * {
   max-width: 100%;
   max-height: 100%;
+}
+
+div:has(> a > .dynamic-map-img-link) {
+  max-width: 100%;
 }
