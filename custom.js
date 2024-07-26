@@ -1,5 +1,3 @@
-let isLocked = false
-
 function waitForElm(selector) {
   return new Promise(resolve => {
       if (document.querySelector(selector)) {
@@ -35,8 +33,6 @@ const selector21 = "[jsname='tRarif'][jsaction='click:ivJHQ']";
 const selector22 = "[jsname='Fus96e'][jsaction='NbD2ab']";
 
 function imgToButton(elm) {
-  if (isLocked) return;
-  isLocked = true;
   elm.classList.add('dynamic-map-img-link');
   if (elm instanceof HTMLImageElement) {
     // clean/new way to transform img to link
@@ -63,7 +59,6 @@ waitForElm(selector12).then(imgToButton);
 waitForElm(selector13).then(imgToButton);
 
 function addGoogleMapButton(elm) {
-  isLocked = true;
   const aElement = document.createElement('a');
 
   const button = `
