@@ -47,44 +47,76 @@ function getSearchQuery() {
 
 function getAddressURL() {
   const address = encodeURIComponent(getSearchQuery());
-  const extension = window.location.host.split('.').pop() || 'com';
-  return `https://www.google.${extension}/maps/search/${address}`;
+  const googleHost = window.location.hostname.startsWith('www.google.')
+    ? window.location.hostname
+    : 'www.google.com';
+  return `https://${googleHost}/maps/search/${address}`;
 }
 
-const selector11 = "#lu_map";
-const selector12 = "img[src^='/maps/vt/']";
-const selector13 = "#dimg_3";
+const mapSelector = '#lu_map, img[src*="/maps/vt/"]';
 
 const selector21 = "[jsname='tRarif'][jsaction='click:ivJHQ']";
 const selector22 = "[jsname='Fus96e'][jsaction='NbD2ab']";
 
 function imgToButton(elm) {
-  elm.classList.add('dynamic-map-img-link');
-  if (elm instanceof HTMLImageElement) {
-    // clean/new way to transform img to link
-    const imgEl = elm;
-    const aElement = document.createElement('a');
-    aElement.href = getAddressURL();
-    aElement.innerHTML = imgEl.parentElement.innerHTML;
+  const mapElement = elm instanceof HTMLImageElement
+    ? elm
+    : elm.querySelector('img[src*="/maps/vt/"]') || elm;
+  const visualElement = mapElement.closest('#lu_map') || elm;
 
-    imgEl.replaceWith(aElement);
-  } else if (elm.closest("a")) {
-    elm.closest("a").href = getAddressURL();
-  } else {
-    const imgEl = elm.querySelector('#pimg_1');
-    const aElement = document.createElement('a');
-    aElement.href = getAddressURL();
-    aElement.innerHTML = imgEl.parentElement.innerHTML;
+  visualElement.classList.add('dynamic-map-img-link');
+  if (visualElement !== mapElement) {
+    mapElement.classList.remove('dynamic-map-img-link');
+  }
 
-    imgEl.replaceWith(aElement);
+  let link = mapElement.closest('a');
+  if (!link) {
+    link = document.createElement('a');
+    mapElement.replaceWith(link);
+    link.appendChild(mapElement);
+  }
+
+  link.href = getAddressURL();
+
+  // Google can update the query without reloading the results page.
+  if (!link.dataset.mapsRedirectionBound) {
+    link.dataset.mapsRedirectionBound = 'true';
+    link.addEventListener('click', () => {
+      link.href = getAddressURL();
+    }, true);
   }
 }
 
-waitForElm(selector11).then(imgToButton);
-waitForElm(selector12).then(imgToButton);
-waitForElm(selector13).then(imgToButton);
+function updateMapLinks(root = document) {
+  if (root instanceof Element && root.matches(mapSelector)) {
+    imgToButton(root);
+  }
+  root.querySelectorAll?.(mapSelector).forEach(imgToButton);
+}
+
+updateMapLinks();
+
+const mapObserver = new MutationObserver(mutations => {
+  mutations.forEach(mutation => {
+    mutation.addedNodes.forEach(node => {
+      if (node instanceof Element) {
+        updateMapLinks(node);
+      }
+    });
+  });
+});
+
+mapObserver.observe(document.body, {
+  childList: true,
+  subtree: true
+});
 
 function addGoogleMapButton(elm) {
+  const container = elm.parentElement;
+  if (!container || container.querySelector(':scope > .new-open-maps-btn')) {
+    return;
+  }
+
   const aElement = document.createElement('a');
 
   const button = `
@@ -96,7 +128,11 @@ function addGoogleMapButton(elm) {
   aElement.href = getAddressURL();
   aElement.innerHTML = button;
 
-  elm.parentElement.appendChild(aElement);
+  aElement.addEventListener('click', () => {
+    aElement.href = getAddressURL();
+  });
+
+  container.appendChild(aElement);
 }
 
 waitForElm(selector21).then(addGoogleMapButton);
