@@ -18,9 +18,35 @@ function waitForElm(selector) {
   });
 }
 
+function getSearchQuery() {
+  // The URL and the form field name are part of Google's public search
+  // contract, unlike generated ids/classes such as #APjFqb.
+  const urlQuery = new URLSearchParams(window.location.search).get('q');
+  if (urlQuery?.trim()) {
+    return urlQuery.trim();
+  }
+
+  const queryField = document.querySelector(
+    'form[action="/search"] [name="q"], input[name="q"], textarea[name="q"]'
+  );
+  if (queryField instanceof HTMLInputElement || queryField instanceof HTMLTextAreaElement) {
+    if (queryField.value.trim()) {
+      return queryField.value.trim();
+    }
+  }
+
+  const visibleSearchField = document.querySelector(
+    'textarea[role="combobox"], input[role="combobox"], textarea[aria-label*="Search" i], input[aria-label*="Search" i]'
+  );
+  if (visibleSearchField instanceof HTMLInputElement || visibleSearchField instanceof HTMLTextAreaElement) {
+    return visibleSearchField.value.trim();
+  }
+
+  return '';
+}
+
 function getAddressURL() {
-  const search = document.querySelector("#APjFqb")?.textContent;
-  const address = search.split(' ').join('+');
+  const address = encodeURIComponent(getSearchQuery());
   const extension = window.location.host.split('.').pop() || 'com';
   return `https://www.google.${extension}/maps/search/${address}`;
 }
