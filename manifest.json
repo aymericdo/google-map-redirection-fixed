@@ -1,7 +1,7 @@
 {
   "name": "Google Maps Redirection",
   "short_name": "Maps Redirection",
-  "version": "3.1",
+  "version": "3.2",
   "manifest_version": 3,
   "content_scripts": [
     {
